@@ -1,0 +1,22 @@
+spring:
+  main:
+    allow-circular-references: true
+  cloud:
+    gateway:
+      routes:
+        - id: iamModule
+          uri: http://localhost:8082/
+          predicates:
+            - Path=/api/v1/auth/**
+        - id: databaseModule
+          uri: http://localhost:8081/
+          predicates:
+            - Path=/consumer/**
+application:
+  name: API-GATEWAY
+  security:
+    jwt:
+      secret-key: 404E635266556A586E3272357538782F413F4428472B4B6250645367566B5970
+      expiration: 86400000
+      refresh-token:
+        expiration: 604800000
